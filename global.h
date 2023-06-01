@@ -25,4 +25,6 @@ extern float total_de_esperas;
 extern FILE* parametros;
 extern FILE* resultados;
 
+extern float expon(float mean);
+
 #endif
