@@ -1,6 +1,6 @@
 #include "global.h"
 
-void reportes(void)  /* Funcion generadora de reportes. */
+void generadorreporte(void)  /* Funcion generadora de generadorreporte. */
 {
     /* Calcula y estima los estimados de las medidas deseadas de desempe�o */  
     fprintf(resultados, "\n\nEspera promedio en la cola%11.3f minutos\n\n",

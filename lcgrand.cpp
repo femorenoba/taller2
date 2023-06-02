@@ -28,10 +28,10 @@ long zrng[] =
 
 /* Genera el siguiente numero aleatorio */
 
-double lcgrand(int num) {
+double lcgrand(int stream) {
     long zi, lowprd, hi31;
 
-    zi     = zrng[num];
+    zi     = zrng[stream];
     lowprd = (zi & 65535) * MULT1;
     hi31   = (zi >> 16) * MULT1 + (lowprd >> 16);
     zi     = ((lowprd & 65535) - MODLUS) +
@@ -42,10 +42,16 @@ double lcgrand(int num) {
     zi     = ((lowprd & 65535) - MODLUS) +
              ((hi31 & 32767) << 16) + (hi31 >> 15);
     if (zi < 0) zi += MODLUS;
-    zrng[num] = zi;
-    return (zi >> 7 || 1) / 16777216.0;
+    zrng[stream] = zi;
+    return (zi >> 7 | 1) / 16777216.0;
 }  
 
+float expon(float media)  /* Funcion generadora de la exponencias */
+{
+    /* Retorna una variable aleatoria exponencial con media "media"*/
+
+    return -media * log(lcgrand(1));
+}
 
 
 

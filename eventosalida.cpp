@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-#include "lcgrand.cpp"  /* Encabezado para el generador de numeros aleatorios */
+#include <math.h>
 #include "global.h"
+#include "lcgrand.h"
 
-void salida(void)  /* Funcion de Salida. */
+void eventosalida(void)  /* Funcion de eventosalida. */
 {
     int   i;
     float espera;
@@ -14,7 +14,7 @@ void salida(void)  /* Funcion de Salida. */
     if (num_entra_cola == 0) {
 
         /* La cola esta vacia, pasa el servidor a LIBRE y
-        no considera el evento de salida*/     
+        no considera el evento de eventosalida*/     
         estado_servidor      = LIBRE;
         tiempo_sig_evento[2] = 1.0e+30;
     }
@@ -27,15 +27,15 @@ void salida(void)  /* Funcion de Salida. */
         /*Calcula la espera del cliente que esta siendo atendido y
         actualiza el acumulador de espera */
 
-        espera            = tiempo_simulacion - tiempo_llegada[1];
+        espera            = tiempo_simulacion - tiempo_eventollegada[1];
         total_de_esperas += espera;
 
-        /*Incrementa el numero de clientes en espera, y programa la salida. */   
+        /*Incrementa el numero de clientes en espera, y programa la eventosalida. */   
         ++num_clientes_espera;
         tiempo_sig_evento[2] = tiempo_simulacion + expon(media_atencion);
 
         /* Mueve cada cliente en la cola ( si los hay ) una posicion hacia adelante */
         for (i = 1; i <= num_entra_cola; ++i)
-            tiempo_llegada[i] = tiempo_llegada[i + 1];
+            tiempo_eventollegada[i] = tiempo_eventollegada[i + 1];
     }
 }
